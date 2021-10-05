@@ -1,13 +1,37 @@
 // import Schema constructor and model function from Mongoose library
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 // import date formatting utility
 const dateFormat = require('../utils/dateFormat');
 
 // create ReactionSchema
-// const ReactionSchema = new Schema(
-
-// );
+const ReactionSchema = new Schema(
+  {
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId()
+    },
+    reactionBody: {
+      type: String,
+      required: true,
+      maxlength: 280
+    },
+    username: {
+      type: String,
+      required: true
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: createdAtVal => dateFormat(createdAtVal)
+    }
+  },
+  {
+    toJSON: {
+      getters: true // tell schema it can use getters 
+    }
+  }
+);
 
 // create ThoughtSchema
 const ThoughtSchema = new Schema(
@@ -27,7 +51,7 @@ const ThoughtSchema = new Schema(
       required: true,
       ref: 'User'
     },
-    // reactions: [ReactionSchema] // use ReactionSchema to validate data for a reply
+    reactions: [ReactionSchema] // use ReactionSchema to validate data for a reply
   },
   {
     toJSON: {
@@ -39,9 +63,9 @@ const ThoughtSchema = new Schema(
 );
 
 // get total count of thought's reactions
-// ThoughtSchema.virtual('reactionCount').get(function() {
-//   return this.reactions.length;
-// });
+ThoughtSchema.virtual('reactionCount').get(function() {
+  return this.reactions.length;
+});
 
 // create the Thought model using the ThoughtSchema
 const Thought = model('Thought', ThoughtSchema);

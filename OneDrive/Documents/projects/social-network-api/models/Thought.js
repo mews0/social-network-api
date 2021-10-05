@@ -27,6 +27,7 @@ const ReactionSchema = new Schema(
     }
   },
   {
+    _id: false, // tell schema not to create '_id', since we already have 'reactionId'
     toJSON: {
       getters: true // tell schema it can use getters 
     }

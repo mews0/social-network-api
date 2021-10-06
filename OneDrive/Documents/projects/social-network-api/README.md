@@ -20,7 +20,7 @@ An API for a social network web application where users can share their thoughts
 2. Open [Insomnia Core](https://docs.insomnia.rest/) to test API routes.
 
 ## Video
-
+https://watch.screencastify.com/v/zPeXl5y2ViQEXr9xCTe0
 
 ## License
 [MIT License](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt)
